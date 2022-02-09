@@ -1,0 +1,165 @@
+{
+  "name": "@willsoto/nestjs-objection",
+  "version": "7.0.0",
+  "description": "Objection module for NestJS",
+  "keywords": [
+    "database",
+    "knex",
+    "nestjs",
+    "objection"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willsoto/nestjs-objection.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Will Soto <willsoto@users.noreply.github.com> (https://github.com/willsoto)",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "tsc --project tsconfig.build.json",
+    "clean": "rimraf dist coverage .nyc_output",
+    "format": "prettier . --write",
+    "lint": "eslint . --fix",
+    "prepare": "husky install",
+    "prerelease": "npm run build",
+    "release": "semantic-release",
+    "test": "mocha",
+    "pretest:coverage": "rimraf coverage .nyc_output",
+    "test:coverage": "nyc mocha",
+    "test:watch": "mocha --watch",
+    "typecheck": "tsc --project tsconfig.lint.json --noEmit"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run lint",
+      "prettier --write"
+    ],
+    "*.{md,yaml,yml}": [
+      "prettier --write"
+    ],
+    "README.md": [
+      "markdown-toc -i",
+      "prettier --write"
+    ]
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all"
+  },
+  "release": {
+    "branches": [
+      "main",
+      {
+        "name": "next",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      "@semantic-release/npm",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ]
+  },
+  "mocha": {
+    "extension": [
+      "ts"
+    ],
+    "file": "./ad-hocs/mocha/plugins.ts",
+    "recursive": true,
+    "require": [
+      "ts-node/register",
+      "source-map-support/register",
+      "./ad-hocs/mocha/hooks.ts"
+    ],
+    "sort": true,
+    "watch-files": [
+      "src/**/*.ts",
+      "test/**/*.ts"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "branches": 90,
+    "check-coverage": true,
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "functions": 90,
+    "include": [
+      "src/**/*.ts"
+    ],
+    "lines": 90,
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "statements": 90
+  },
+  "devDependencies": {
+    "@commitlint/cli": "~16.1.0",
+    "@commitlint/config-conventional": "~16.0.0",
+    "@istanbuljs/nyc-config-typescript": "~1.0.1",
+    "@nestjs/common": "~8.2.3",
+    "@nestjs/core": "~8.2.3",
+    "@nestjs/testing": "~8.2.3",
+    "@semantic-release/changelog": "~6.0.1",
+    "@semantic-release/git": "~10.0.1",
+    "@types/chai": "~4.3.0",
+    "@types/chai-as-promised": "~7.1.4",
+    "@types/mocha": "~9.1.0",
+    "@types/node": "~17.0.1",
+    "@types/sinon": "~10.0.6",
+    "@types/sinon-chai": "~3.2.6",
+    "@typescript-eslint/eslint-plugin": "~5.10.0",
+    "@typescript-eslint/parser": "~5.10.0",
+    "@vscode/sqlite3": "~5.0.7",
+    "chai": "~4.3.4",
+    "chai-as-promised": "~7.1.1",
+    "eslint": "~8.8.0",
+    "eslint-config-prettier": "~8.3.0",
+    "eslint-plugin-mocha": "~10.0.1",
+    "husky": "~7.0.4",
+    "knex": "~1.0.1",
+    "lint-staged": "~12.3.1",
+    "markdown-toc": "~1.2.0",
+    "mocha": "~9.2.0",
+    "nyc": "~15.1.0",
+    "objection": "3.0.1",
+    "prettier": "~2.5.0",
+    "prettier-plugin-organize-imports": "~2.3.4",
+    "prettier-plugin-packagejson": "~2.2.15",
+    "reflect-metadata": "~0.1.13",
+    "rimraf": "~3.0.2",
+    "rxjs": "~7.5.1",
+    "semantic-release": "~19.0.2",
+    "sinon": "~13.0.0",
+    "sinon-chai": "~3.7.0",
+    "source-map-support": "~0.5.21",
+    "ts-node": "~10.4.0",
+    "typescript": "~4.5.2"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^7.0.0 || ^8.0.0",
+    "@nestjs/core": "^7.0.0 || ^8.0.0",
+    "knex": "^1.0.0",
+    "objection": "^3.0.0"
+  },
+  "volta": {
+    "node": "16.13.0",
+    "npm": "8.1.4"
+  }
+}
